@@ -77,16 +77,6 @@ function nomesMotoboys($id = null){
     return $nome;
 }
 
-function nomesBairros($id = null){
-    $database = open_database();
-    
-    $sql = "SELECT * FROM bairro WHERE id_bairro = " . $id;
-    $result=mysqli_query($database, $sql);
-    $data = mysqli_fetch_assoc($result);
-    $nome = $data['nome'];
-    return $nome;
-}
-
 function nomesSituacao($id = null){
     $database = open_database();
     
@@ -97,23 +87,100 @@ function nomesSituacao($id = null){
     return $nome;
 }
 
-function idLanches($id = null){
+function find_all_pedidos_day( $table, $dia) {
     $database = open_database();
-    
-    $sql = "SELECT * FROM lanche_pedido WHERE id_pedido = " . $id;
-    $result=mysqli_query($database, $sql);
-    $data = mysqli_fetch_assoc($result);
-    $id = $data['id_lanche'];
-    return $id;
+    $found = null;
+
+    $sql = "SELECT * FROM " . $table . " WHERE data_pedido = '" . $dia . "';";
+    $result = $database->query($sql);
+
+    if ($result->num_rows > 0) {
+        $found = $result->fetch_all(MYSQLI_ASSOC);
+    }
+    close_database($database);
+    return $found;
 }
 
-function nomeLanche($id = null){
+function despacharPedido($id_pedido){
     $database = open_database();
     
-    $sql = "SELECT * FROM lanche WHERE id_lanche = " . $id;
-    $result=mysqli_query($database, $sql);
-    $data = mysqli_fetch_assoc($result);
-    $nome = $data['nome'];
-    return $nome;
+    $sql = "UPDATE pedido SET id_situacao = 2 WHERE id_pedido = " . $id_pedido . ";";
+    
+    try {
+        $database->query($sql);
+
+        $_SESSION['message'] = 'Registro atualizado com sucesso.';
+        $_SESSION['type'] = 'success';
+
+    } catch (Exception $e) {
+
+        $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+        $_SESSION['type'] = 'danger';
+    }
+
+    close_database($database);
 }
 
+function update_status($table = null, $id_pedido = 0, $data = null) {
+
+    $database = open_database();
+
+    $items = null;
+
+    foreach ($data as $key => $value) {
+        $items .= trim($key, "'") . "='$value',";
+    }
+
+    // remove a ultima virgula
+    $items = rtrim($items, ',');
+
+    $sql  = "UPDATE " . $table;
+    $sql .= " SET $items";
+    $sql .= " WHERE id_pedido = " . $id_pedido . ";";
+
+    try {
+        $database->query($sql);
+
+        $_SESSION['message'] = 'Registro atualizado com sucesso.';
+        $_SESSION['type'] = 'success';
+
+    } catch (Exception $e) {
+
+        $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+        $_SESSION['type'] = 'danger';
+    }
+
+    close_database($database);
+}
+
+function find_pedido( $table = null, $id_pedido = null ) {
+
+    $database = open_database();
+    $found = null;
+
+    try {
+        if ($id_pedido) {
+            $sql = "SELECT * FROM " . $table . " WHERE id_pedido = " . $id_pedido;
+            $result = $database->query($sql);
+
+            if ($result->num_rows > 0) {
+                $found = $result->fetch_assoc();
+            }
+
+        } else {
+
+            $sql = "SELECT * FROM " . $table;
+            $result = $database->query($sql);
+
+            if ($result->num_rows > 0) {
+                $found = $result->fetch_all(MYSQLI_ASSOC);
+            }
+        }
+    } catch (Exception $e) {
+        $_SESSION['message'] = $e->GetMessage();
+        $_SESSION['type'] = 'danger';
+    }
+
+    close_database($database);
+    return $found;
+}

@@ -20,4 +20,7 @@ if ( !defined('ABSPATH') )
 if ( !defined('DBAPI') )
     define('DBAPI', ABSPATH . '../database/database.php');
 
+if ( !defined('BASEURL') )
+    define('BASEURL', '/restaurante/');
+
 

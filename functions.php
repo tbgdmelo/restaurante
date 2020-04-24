@@ -1,5 +1,5 @@
 <?php
-    require_once('../config/config.php');
+    require_once('config/config.php');
     require_once(DBAPI);
 
     function listarSituacoes(){
@@ -30,6 +30,32 @@
         if (!empty($_POST['pedido'])) {
             $pedido = $_POST['pedido'];
             save('pedido', $pedido);
+            header('location: index.php');
+        }
+    }
+
+    function finaliza($id_pedido){
+        despacharPedido($id_pedido);
+        header('location: index.php');
+    }
+
+    function edit(){
+        if (isset($_GET['id_pedido'])) {
+
+            $id_pedido = $_GET['id_pedido'];
+    
+            if (isset($_POST['pedido'])) {
+    
+                $pedido = $_POST['pedido'];
+    
+                update_status('pedido', $id_pedido, $pedido);
+                header('location: index.php');
+            } else {
+    
+                global $pedido;
+                $pedido = find_pedido('pedido', $id_pedido);
+            }
+        } else {
             header('location: index.php');
         }
     }

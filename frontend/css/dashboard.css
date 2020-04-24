@@ -1,0 +1,18 @@
+body{
+    background-color: #9d5326;
+    font-family: 'Times New Roman', Times, serif;
+}
+tr,th,td{
+    background-color: white;
+}
+h2{
+    color: #f3c33b;
+    font-size: 40px;
+    overflow: auto;
+}
+
+#logo{
+    float: right;
+    width: 115px;
+    height: 115px;
+}
