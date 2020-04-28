@@ -8,15 +8,14 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="frontend/fontawesome/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="frontend/jquery/jquery.min.js"></script>
     <title>Cadastro de Pedido</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="frontend/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="frontend/bootstrap/js/bootstrap.min.js">
     <link rel="stylesheet" href="frontend/css/cadastro.css">
+    <link rel="stylesheet" href="frontend/fontawesome/css/all.min.css" type="text/css">
 </head>
 
 <body>
@@ -30,7 +29,7 @@
                     <label for="name">Nº do pedido:</label>
                     <input type="text" class="form-control campoDefault" name="pedidos['1']">
                     <div id="imendaHTMLemail"></div>
-                    <a href="#" id="btnAdicionarPedido" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                    <a href="#" id="btnAdicionarPedido"><i class="btn btn-primary fas fa-plus-circle"></i></a>
                 </div>
 
                 <div class="form-group col-md-3">
