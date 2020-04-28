@@ -77,6 +77,17 @@ function nomesMotoboys($id = null){
     return $nome;
 }
 
+
+function nomesCarne($id = null){
+    $database = open_database();
+    
+    $sql = "SELECT * FROM carne WHERE id_carne = " . $id;
+    $result=mysqli_query($database, $sql);
+    $data = mysqli_fetch_assoc($result);
+    $nome = $data['nome'];
+    return $nome;
+}
+
 function nomesSituacao($id = null){
     $database = open_database();
     
@@ -87,11 +98,25 @@ function nomesSituacao($id = null){
     return $nome;
 }
 
-function find_all_pedidos_day( $table, $dia) {
+function find_all_pedidos( $table) {
     $database = open_database();
     $found = null;
 
-    $sql = "SELECT * FROM " . $table . " WHERE data_pedido = '" . $dia . "';";
+    $sql = "SELECT * FROM " . $table . " WHERE id_situacao <> 2 ORDER BY id_situacao;";
+    $result = $database->query($sql);
+
+    if ($result->num_rows > 0) {
+        $found = $result->fetch_all(MYSQLI_ASSOC);
+    }
+    close_database($database);
+    return $found;
+}
+
+function find_all_pedidos_carne( $table) {
+    $database = open_database();
+    $found = null;
+
+    $sql = "SELECT * FROM " . $table . " WHERE id_situacao <> 2 ORDER BY id_situacao;";
     $result = $database->query($sql);
 
     if ($result->num_rows > 0) {
@@ -183,4 +208,12 @@ function find_pedido( $table = null, $id_pedido = null ) {
 
     close_database($database);
     return $found;
+}
+
+function verificaNovoPedido(){
+    $database = open_database();
+    $sql = "SELECT COUNT(id_pedido) AS quantidade FROM pedido where id_situacao = 1;";
+    $result=mysqli_query($database, $sql);
+    $data = mysqli_fetch_assoc($result);
+    return $data['quantidade'];
 }

@@ -1,6 +1,6 @@
 <?php
     require_once('functions.php');
-    edit();
+    editCarne();
     listarSituacoes();
 ?>
 
@@ -19,7 +19,7 @@
 <body>
 </br>
     <h1 class="container" align="center">Finalizar Pedido <img id="logo" src="img/logo.jpeg"></h2></center></h1>
-        <form action="edit.php?id_pedido=<?php echo $pedido['id_pedido'];?>" method="post" enctype="multipart/form-data" class="container">
+        <form action="editcarne.php?id_pedido=<?php echo $pedido['id_pedido'];?>" method="post" enctype="multipart/form-data" class="container">
             <!-- area de campos do form -->
             <hr />
             <div class="row">

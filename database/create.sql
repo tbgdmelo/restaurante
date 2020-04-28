@@ -10,12 +10,28 @@ CREATE TABLE situacao(
     PRIMARY KEY (id_situacao)
 );
 
+CREATE TABLE carne(
+    id_carne INT AUTO_INCREMENT,
+    nome VARCHAR (150),
+    PRIMARY KEY (id_carne)
+);
+
+CREATE TABLE pedido_carne_nobre(
+    id_pedido INT,
+    id_carne INT,
+    id_situacao INT,
+    PRIMARY KEY (id_pedido),
+    FOREIGN KEY (id_carne) REFERENCES carne (id_carne) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_situacao) REFERENCES situacao (id_situacao) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 CREATE TABLE pedido(
-    id_pedido INT AUTO_INCREMENT,
+    id_pedido INT,
     id_motoboy INT,
     id_situacao INT,
-    data_pedido DATE,
     PRIMARY KEY (id_pedido),
     FOREIGN KEY (id_motoboy) REFERENCES motoboy (id_motoboy) ON DELETE RESTRICT ON UPDATE RESTRICT,
     FOREIGN KEY (id_situacao) REFERENCES situacao (id_situacao) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+
