@@ -1,6 +1,6 @@
 <?php
     require_once('functions.php');
-    add();
+    addPedido();
     listarMotoboys();
     listarSituacoes();
 ?>
@@ -28,14 +28,14 @@
             <div class="row">
                 <div class="form-group col-md-2 campoDefault" id="origem">
                     <label for="name">Nº do pedido:</label>
-                    <input type="text" class="form-control campoDefault" name="pedido[id_pedido]">
+                    <input type="text" class="form-control campoDefault" name="pedidos['1']">
                     <div id="imendaHTMLemail"></div>
                     <a href="#" id="btnAdicionarPedido" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                 </div>
 
                 <div class="form-group col-md-3">
                     <label>Situação do Pedido:</label>
-                    <select class="form-control" name="pedido[id_situacao]">
+                    <select class="form-control" name="id_situacao">
                         <option onfocus="true">Selecione...</option>
                         <?php if ($situacoes) : ?>
                             <?php foreach ($situacoes as $situacao) : ?>
@@ -49,7 +49,7 @@
 
                 <div class="form-group col-md-3">
                     <label>Motoboy:</label>
-                    <select class="form-control" name="pedido['id_motoboy']">
+                    <select class="form-control" name="id_motoboy">
                         <option onfocus="true">Selecione...</option>
                         <?php if ($motoboys) : ?>
                             <?php foreach ($motoboys as $motoboy) : ?>
@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
 
-	var idContador = 0;
+	var idContador = 1;
 			
 	function exclui(id){
 		var campo = $("#"+id.id);
@@ -94,10 +94,10 @@
 			var idCampo = "campoExtra"+idContador;
 			var idForm = "formExtra"+idContador;
 		
-			var html = "";
+			var html = '';
 			
-			html += "<div style='margin-top: 8px;' class='input-group' id='"+idForm+"'>";
-			html += "<input type='text' id='"+idCampo+"' class='form-control novoCampo'/>";
+			html += '<div style="margin-top: 8px;" class="input-group" id="'+idForm+'">';
+			html += '<input type="text" name="pedidos[\''+idContador+'\']" id="'+idCampo+'" class="form-control novoCampo"/>';
 			html += "<span class='input-group-btn'>";
 			html +=	"<button class='btn' onclick='exclui("+idForm+")' type='button'><span class='fa fa-trash'></span></button>";
 			html += "</span>";

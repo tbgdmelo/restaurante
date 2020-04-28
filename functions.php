@@ -116,3 +116,14 @@
         }
     }
     
+    function addPedido(){
+        if (!empty($_POST['pedidos'])){
+            #Salvar todos os numeros de pedidos em um array
+            $pedidos = $_POST['pedidos'];
+            $id_motoboy = $_POST['id_motoboy'];
+            $id_situacao = $_POST['id_situacao'];
+
+            savePedidos($pedidos, $id_motoboy, $id_situacao);
+            header('location: gerenciar.php');
+        }
+    }

@@ -217,3 +217,17 @@ function verificaNovoPedido(){
     $data = mysqli_fetch_assoc($result);
     return $data['quantidade'];
 }
+
+function savePedidos($ids_pedido=1, $id_motoboy=1, $id_situacao=1){
+    $database = open_database();
+    $columns = null;
+
+    foreach ($ids_pedido as $key => $value) {
+        $columns .= trim($key, "'") . ",";
+    
+        $sql = "INSERT INTO pedido (id_pedido, id_motoboy, id_situacao) VALUES (" .$value. "," .$id_motoboy. "," .$id_situacao. ");";
+        echo $sql;
+        mysqli_query($database, $sql);
+    }
+    close_database($database);
+}
